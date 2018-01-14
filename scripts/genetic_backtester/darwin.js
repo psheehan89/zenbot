@@ -144,7 +144,7 @@ let processOutput = output => {
   delete r.use_strategies;
   delete r.verbose;
   r.selector = r.selector.normalized
-  
+
   if (start) {
     r.start = moment(start).format("YYYYMMDDhhmm");
   }
@@ -285,28 +285,28 @@ let strategies = {
   },
   srsi_macd: {
     // -- common
-    period_length: RangePeriod(1, 120, 'm'),
+    period_length: RangePeriod(2, 20, 'm'),
     min_periods: Range(1, 200),
-    markdown_buy_pct: RangeFloat(-1, 5),
-    markup_sell_pct: RangeFloat(-1, 5),
+    markdown_buy_pct: RangeFloat(0, 0),
+    markup_sell_pct: RangeFloat(0, 0),
     order_type: RangeMakerTaker(),
-    sell_stop_pct: Range0(1, 50),
-    buy_stop_pct: Range0(1, 50),
+    sell_stop_pct: Range0(5, 20),
+    buy_stop_pct: Range0(0, 0),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    rsi_periods: Range(1, 200),
-    srsi_periods: Range(1, 200),
-    srsi_k: Range(1, 50),
-    srsi_d: Range(1, 50),
-    oversold_rsi: Range(1, 100),
-    overbought_rsi: Range(1, 100),
-    ema_short_period: Range(1, 20),
-    ema_long_period: Range(20, 100),
-    signal_period: Range(1, 20),
-    up_trend_threshold: Range(0, 20),
-    down_trend_threshold: Range(0, 20)
+    rsi_periods: Range(10, 20),
+    srsi_periods: Range(5, 15),
+    srsi_k: Range(5, 20),
+    srsi_d: Range(1, 8),
+    oversold_rsi: Range(5, 25),
+    overbought_rsi: Range(80, 100),
+    ema_short_period: Range(5, 21),
+    ema_long_period: Range(55, 377),
+    signal_period: Range(5, 15),
+    up_trend_threshold: Range(0, 0),
+    down_trend_threshold: Range(0, 0)
   },
   macd: {
     // -- common
@@ -497,23 +497,24 @@ let strategies = {
   },
   dema: {
     // -- common
-    period_length: RangePeriod(1, 120, 'm'),
-    min_periods: Range(1, 200),
-    markup_pct: RangeFloat(0, 5),
+    period_length: RangePeriod(5, 40, 'm'),
+    min_periods: Range(5, 60),
+    markdown_buy_pct: RangeFloat(0, 0),
+    markup_sell_pct: RangeFloat(0, 0),
     order_type: RangeMakerTaker(),
-    sell_stop_pct: Range0(1, 50),
-    buy_stop_pct: Range0(1, 50),
+    sell_stop_pct: Range0(5, 15),
+    buy_stop_pct: Range0(0, 0),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    ema_short_period: Range(1, 20),
-    ema_long_period: Range(20, 100),
-    signal_period: Range(1, 20),
-    up_trend_threshold: Range(0, 50),
-    down_trend_threshold: Range(0, 50),
-    overbought_rsi_periods: Range(1, 50),
-    overbought_rsi: Range(20, 100)
+    ema_short_period: Range(3, 21),
+    ema_long_period: Range(21, 100),
+    signal_period: Range(10, 20),
+    up_trend_threshold: Range(0, 0),
+    down_trend_threshold: Range(0, 0),
+    overbought_rsi_periods: Range(5, 15),
+    overbought_rsi: Range(75, 85)
   }
 };
 
