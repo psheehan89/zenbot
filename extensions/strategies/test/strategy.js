@@ -3,7 +3,7 @@ let z = require('zero-fill')
 
 module.exports = function container (get, set, clear) {
   return {
-    name: 'srsi_macd',
+    name: 'test',
     description: 'Stochastic MACD Strategy',
 
     getOptions: function () {
@@ -25,7 +25,7 @@ module.exports = function container (get, set, clear) {
 
     calculate: function (s) {
 		// compute Stochastic RSI
-		get('lib.srsi')(s, 'srsi', s.options.rsi_periods, s.options.srsi_k, s.options.srsi_d)
+		get('lib.srsi_edit')(s, 'srsi', s.options.rsi_periods, s.options.srsi_periods, s.options.srsi_k, s.options.srsi_d)
 
         // compute MACD
         get('lib.ema')(s, 'ema_short', s.options.ema_short_period)
@@ -82,6 +82,7 @@ module.exports = function container (get, set, clear) {
       else {
         cols.push('         ')
       }
+      // console.log(s.period)
       // if (s.lookback[0]) {
       //   console.log(s.period.macd_histogram >= s.options.up_trend_threshold, s.period.srsi_K > s.period.srsi_D, s.period.srsi_K > s.lookback[0].srsi_K, s.period.srsi_K < s.options.oversold_rsi)
       // }

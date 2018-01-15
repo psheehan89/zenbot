@@ -87,7 +87,7 @@ module.exports = function container (get, set, clear) {
   }
 
   // TODO: this contains open orders and gets updated on buy/sell/getOrder
-  // should maintain a list of ID's and keep this up to date from the websocket feed's 
+  // should maintain a list of ID's and keep this up to date from the websocket feed's
   // 'done'/'change'/'match' messages and use this as a cache for `getOrder` below
   var orders = {}
 
@@ -183,7 +183,7 @@ module.exports = function container (get, set, clear) {
         var asks = state.asks
         var bids = state.bids
         if(bids.length && asks.length){
-          // price is a `num` arbitrary precision number and needs to be toString()ed and parseFloat()ed 
+          // price is a `num` arbitrary precision number and needs to be toString()ed and parseFloat()ed
           var best_bid = parseFloat(bids[0].price.toString())
           var best_ask = parseFloat(asks[0].price.toString())
           if(best_bid && best_ask){
