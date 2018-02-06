@@ -9,7 +9,7 @@ module.exports = function container (get, set, clear) {
     getOptions: function () {
       this.option('period', 'period length, same as --period_length', String, '30m')
       this.option('period_length', 'period length, same as --period', String, '30m')
-      this.option('min_periods', 'min. number of history periods', Number, 200)
+      this.option('min_periods', 'min. number of history periods', Number, 55)
       this.option('rsi_periods', 'number of RSI periods', 14)
       this.option('srsi_periods', 'number of RSI periods', Number, 9)
       this.option('srsi_k', '%K line', Number, 5)
@@ -17,7 +17,7 @@ module.exports = function container (get, set, clear) {
       this.option('oversold_rsi', 'buy when RSI reaches or drops below this value', Number, 10)
       this.option('overbought_rsi', 'sell when RSI reaches or goes above this value', Number, 90)
       this.option('ema_short_period', 'number of periods for the shorter EMA', Number, 21)
-      this.option('ema_long_period', 'number of periods for the longer EMA', Number, 200)
+      this.option('ema_long_period', 'number of periods for the longer EMA', Number, 55)
       this.option('signal_period', 'number of periods for the signal EMA', Number, 9)
       this.option('up_trend_threshold', 'threshold to trigger a buy signal', Number, 0)
       this.option('down_trend_threshold', 'threshold to trigger a sold signal', Number, 0)
@@ -40,22 +40,25 @@ module.exports = function container (get, set, clear) {
     },
 
     onPeriod: function (s, cb) {
-      let macd_over_uptrend_threshold = s.period.macd_histogram >= s.options.up_trend_threshold
-      let macd_under_downtrend_threshold = s.period.macd_histogram < s.options.down_trend_threshold
       let k_line_over_d_line = s.period.srsi_K > s.period.srsi_D
       let rsi_under_oversold = s.period.rsi < s.options.oversold_rsi
       let rsi_over_overbought = s.period.rsi > s.options.overbought_rsi
       let k_line_trending_up
+      let macd_over_uptrend_threshold = s.period.macd_histogram >= s.options.up_trend_threshold
+      let macd_under_downtrend_threshold = s.period.macd_histogram < s.options.down_trend_threshold
+
+      // console.log('up', s.period.macd_histogram, s.options.up_trend_threshold, macd_over_uptrend_threshold)
+      // console.log('down', s.period.macd_histogram, s.options.down_trend_threshold, macd_under_downtrend_threshold)
 
       s.lookback[0] ? k_line_trending_up = s.period.srsi_K > s.lookback[0].srsi_K : false
 
       if (!s.in_preroll) {
         if (typeof s.period.macd_histogram === 'number' && typeof s.lookback[0].macd_histogram === 'number' && typeof s.period.srsi_K === 'number' && typeof s.period.srsi_D === 'number') {
           // Buy signal
-          if (macd_over_uptrend_threshold && ((k_line_over_d_line && k_line_trending_up) || rsi_under_oversold)) s.signal = 'buy'
-
-          // Sell signal
-          if (macd_under_downtrend_threshold && ((!k_line_over_d_line && !k_line_trending_up) || rsi_over_overbought)) s.signal = 'sell'
+          if (rsi_under_oversold) s.signal = 'buy'
+          else if (rsi_over_overbought) s.signal = 'sell'
+          else if (macd_over_uptrend_threshold && k_line_over_d_line && k_line_trending_up) s.signal = 'buy'
+          else if (macd_under_downtrend_threshold && !k_line_over_d_line && !k_line_trending_up) s.signal = 'sell'
         }
       }
       cb()
