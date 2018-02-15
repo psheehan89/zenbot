@@ -285,10 +285,10 @@ let strategies = {
   },
   srsi_macd: {
     // -- common
-    period_length: RangePeriod(2, 20, 'm'),
+    period_length: RangePeriod(1, 50, 'm'),
     min_periods: Range(1, 200),
-    markdown_buy_pct: RangeFloat(0, 0),
-    markup_sell_pct: RangeFloat(0, 0),
+    markdown_buy_pct: RangeFloat(-0.2, -0.2),
+    markup_sell_pct: RangeFloat(-0.2, -0.2),
     order_type: RangeMakerTaker(),
     sell_stop_pct: Range0(5, 20),
     buy_stop_pct: Range0(0, 0),
@@ -296,38 +296,86 @@ let strategies = {
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    rsi_periods: Range(10, 20),
-    srsi_periods: Range(5, 15),
-    srsi_k: Range(5, 20),
-    srsi_d: Range(1, 8),
+    rsi_periods: Range(10, 40),
+    srsi_periods: Range(5, 30),
+    srsi_k: Range(10, 40),
+    srsi_d: Range(3, 10),
     oversold_rsi: Range(5, 25),
-    overbought_rsi: Range(80, 100),
-    ema_short_period: Range(5, 21),
-    ema_long_period: Range(55, 377),
+    overbought_rsi: Range(70, 90),
+    ema_short_period: Range(3, 50),
+    ema_long_period: Range(50, 150),
     signal_period: Range(5, 15),
-    up_trend_threshold: Range(0, 0),
-    down_trend_threshold: Range(0, 0)
+    up_trend_threshold: RangeFloat(0, 0),
+    down_trend_threshold: RangeFloat(0, 0)
   },
+  // srsi_macd: {
+  //   // -- common
+  //   period_length: RangePeriod(4, 20, 'm'),
+  //   min_periods: Range(1, 200),
+  //   markdown_buy_pct: RangeFloat(-0.1, -0.1),
+  //   markup_sell_pct: RangeFloat(-0.1, -0.1),
+  //   order_type: RangeMakerTaker(),
+  //   sell_stop_pct: Range0(5, 20),
+  //   buy_stop_pct: Range0(0, 0),
+  //   profit_stop_enable_pct: Range0(1, 20),
+  //   profit_stop_pct: Range(1,20),
+  //
+  //   // -- strategy
+  //   rsi_periods: Range(10, 20),
+  //   srsi_periods: Range(5, 15),
+  //   srsi_k: Range(5, 20),
+  //   srsi_d: Range(1, 8),
+  //   oversold_rsi: Range(5, 25),
+  //   overbought_rsi: Range(80, 100),
+  //   ema_short_period: Range(5, 21),
+  //   ema_long_period: Range(55, 377),
+  //   signal_period: Range(5, 15),
+  //   up_trend_threshold: RangeFloat(1, 2),
+  //   down_trend_threshold: RangeFloat(-1, -2)
+  // },
   macd: {
     // -- common
-    period_length: RangePeriod(1, 120, 'm'),
-    min_periods: Range(1, 200),
-    markdown_buy_pct: RangeFloat(-1, 5),
-    markup_sell_pct: RangeFloat(-1, 5),
+    period_length: RangePeriod(4, 10, 'm'),
+    min_periods: Range(20, 25),
+    markdown_buy_pct: RangeFloat(-0.1, -0.1),
+    markup_sell_pct: RangeFloat(-0.1, -0.1),
     order_type: RangeMakerTaker(),
-    sell_stop_pct: Range0(1, 50),
-    buy_stop_pct: Range0(1, 50),
+    sell_stop_pct: Range0(5, 20),
+    buy_stop_pct: Range0(0, 0),
     profit_stop_enable_pct: Range0(1, 20),
     profit_stop_pct: Range(1,20),
 
     // -- strategy
-    ema_short_period: Range(1, 20),
-    ema_long_period: Range(20, 100),
-    signal_period: Range(1, 20),
-    up_trend_threshold: Range(0, 50),
-    down_trend_threshold: Range(0, 50),
-    overbought_rsi_periods: Range(1, 50),
-    overbought_rsi: Range(20, 100)
+    // rsi_periods: Range(10, 20),
+    // srsi_periods: Range(5, 15),
+    // srsi_k: Range(10, 21),
+    // srsi_d: Range(3, 10),
+    oversold_rsi: Range(5, 25),
+    overbought_rsi: Range(80, 90),
+    ema_short_period: Range(5, 20),
+    ema_long_period: Range(50, 150),
+    signal_period: Range(5, 15),
+    up_trend_threshold: RangeFloat(0, 0.005),
+    down_trend_threshold: RangeFloat(-0, -0.005)
+    // -- common
+    // period_length: RangePeriod(1, 120, 'm'),
+    // min_periods: Range(1, 200),
+    // markdown_buy_pct: RangeFloat(-1, 5),
+    // markup_sell_pct: RangeFloat(-1, 5),
+    // order_type: RangeMakerTaker(),
+    // sell_stop_pct: Range0(1, 50),
+    // buy_stop_pct: Range0(1, 50),
+    // profit_stop_enable_pct: Range0(1, 20),
+    // profit_stop_pct: Range(1,20),
+
+    // -- strategy
+    // ema_short_period: Range(1, 20),
+    // ema_long_period: Range(20, 100),
+    // signal_period: Range(1, 20),
+    // up_trend_threshold: Range(0, 50),
+    // down_trend_threshold: Range(0, 50),
+    // overbought_rsi_periods: Range(1, 50),
+    // overbought_rsi: Range(20, 100)
   },
   neural: {
     // -- common
