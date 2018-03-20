@@ -43,20 +43,15 @@ module.exports = function container (get, set, clear) {
       let k_line_over_d_line = s.period.srsi_K > s.period.srsi_D
       let rsi_under_oversold = s.period.rsi < s.options.oversold_rsi
       let rsi_over_overbought = s.period.rsi > s.options.overbought_rsi
-      let k_line_trending_up
       let macd_over_uptrend_threshold = s.period.macd_histogram >= s.options.up_trend_threshold
       let macd_under_downtrend_threshold = s.period.macd_histogram < s.options.down_trend_threshold
-      let dipping
-      let k_buy = s.period.srsi_K < s.options.oversold_rsi
-
-      // console.log('up', s.period.macd_histogram, s.options.up_trend_threshold, macd_over_uptrend_threshold)
-      // console.log('down', s.period.macd_histogram, s.options.down_trend_threshold, macd_under_downtrend_threshold)
+      let k_line_trending_up = false
+      let dipping = false
 
       s.lookback[0] ? k_line_trending_up = s.period.srsi_K > s.lookback[0].srsi_K : k_line_trending_up = false
       s.lookback[288] ? dipping = 0.90 > s.period.close / s.lookback[288].close : dipping = false
 
       if (dipping) {
-        console.log(dipping, s.period.close, s.lookback[288].close, s.period.close / s.lookback[288].close)
         macd_over_uptrend_threshold = s.period.macd_histogram >= 0
       }
 
